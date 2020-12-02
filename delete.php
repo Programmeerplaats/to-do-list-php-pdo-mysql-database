@@ -14,4 +14,6 @@ $stmt = $conn->prepare($query);
 // execute the query
 $stmt->execute();
 
+header("location: index.php");
+
 ?>

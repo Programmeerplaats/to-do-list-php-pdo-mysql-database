@@ -1,9 +1,11 @@
 <?php
 
-$stmt = $conn->query("SELECT * FROM taak");
+// Query maken om alle rijen uit de tabel taak op te halen
+$query = $conn->query("SELECT * FROM taak");
 
 ?>
 
+<!-- Tabel aanmaken in HTML -->
 <table>
     <tr>
         <th>Naam</th>
@@ -13,8 +15,10 @@ $stmt = $conn->query("SELECT * FROM taak");
         <th>Verwijderen</th>
     </tr>
 
-    <?php while ($row = $stmt->fetch()) { ?>
+    <!-- While loop die door alle opgehaalde rijen van de tabel taak gaat -->
+    <?php while ($row = $query->fetch()) { ?>
 
+    <!-- Alle data van de opgehaalde rij in table row stoppen -->
     <tr>
         <td><?php echo $row['naam']; ?></td>
         <td><?php echo $row['taakomschrijving']; ?></td>

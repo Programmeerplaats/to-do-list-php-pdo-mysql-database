@@ -24,6 +24,8 @@ if (isset($_POST['submit'])) {
 
   // execute the query
   $stmt->execute();
+
+  header("location: index.php");
 }
 
 ?>
