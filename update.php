@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
     $query = "UPDATE taak SET naam = '".$naam."',
                             taakomschrijving = '".$taakomschrijving."',
                             deadline = '".$deadline."'
-                        WHERE id=$id";
+                            WHERE id=$id";
 
     // Statement voorbereiden
     $stmt = $conn->prepare($query);
