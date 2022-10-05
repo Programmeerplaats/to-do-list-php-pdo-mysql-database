@@ -8,8 +8,16 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-// SELECT query uitvoeren en alle data van rij ophalen
-$select = $conn->query("SELECT * FROM taak WHERE id=$id");
+// Statement voorbereiden met :id als placeholder
+$select = $conn->prepare("SELECT * FROM taak WHERE id=:id");
+
+// Placeholder :id koppelen aan variabele $id
+$select->bindParam(':id', $id);
+
+// Query uitvoeren
+$select->execute();
+
+// Alle data van rij ophalen
 $row = $select->fetch();
 
 // Als er op de button van het updateformulier is geklikt, dan de geüpdatete data van een rij verwerken in database
