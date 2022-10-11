@@ -11,11 +11,19 @@ if (isset($_POST['submit'])) {
     $taakomschrijving = $_POST['taakomschrijving'];
     $deadline = $_POST['deadline'];
 
-    // Query maken om data op de juiste manier toe te voegen aan tabel
-    $query = "INSERT INTO taak (naam, taakomschrijving, deadline) VALUES ('$naam', '$taakomschrijving', '$deadline')";
+    // Query maken om data op de juiste manier toe te voegen aan tabel met placeholders
+    $query = "INSERT INTO taak (naam, taakomschrijving, deadline) VALUES (:naam, :taakomschrijving, :deadline)";
 
-    // Voer de query uit
-    $conn->exec($query);
+    // Statement voorbereiden
+    $stmt = $conn->prepare($query);
+
+    // Placeholders koppelen aan variabelen
+    $stmt->bindParam(':naam', $naam);
+    $stmt->bindParam(':taakomschrijving', $taakomschrijving);
+    $stmt->bindParam(':deadline', $deadline);
+
+    // Query uitvoeren
+    $stmt->execute();
 
     // Weer teruggaan naar index.php
     // Ook te voorkomen dat een rij nog een keer wordt toegevoegd bij een refresh
