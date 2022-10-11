@@ -28,14 +28,20 @@ if (isset($_POST['submit'])) {
     $taakomschrijving = $_POST['taakomschrijving'];
     $deadline = $_POST['deadline'];
 
-    // UPDATE query maken om geüpdatete data van een rij te kunnen verwerken in database
-    $query = "UPDATE taak SET naam = '".$naam."',
-                            taakomschrijving = '".$taakomschrijving."',
-                            deadline = '".$deadline."'
-                            WHERE id=$id";
+    // UPDATE query maken om geüpdatete data van een rij te kunnen verwerken in database met placeholders
+    $query = "UPDATE taak SET naam = :naam,
+                            taakomschrijving = :taakomschrijving,
+                            deadline = :deadline
+                            WHERE id=:id";
 
     // Statement voorbereiden
     $stmt = $conn->prepare($query);
+
+    // Placeholders koppelen aan variabelen
+    $stmt->bindParam(':naam', $naam);
+    $stmt->bindParam(':taakomschrijving', $taakomschrijving);
+    $stmt->bindParam(':deadline', $deadline);
+    $stmt->bindParam(':id', $id);
 
     // Query uitvoeren
     $stmt->execute();
