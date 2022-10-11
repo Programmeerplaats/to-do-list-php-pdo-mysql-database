@@ -8,11 +8,14 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
 
-// DELETE query maken om rij uit database te kunnen verwijderen
-$query = "DELETE FROM taak WHERE id=$id";
+// DELETE query maken om rij uit database te kunnen verwijderen met :id als placeholder
+$query = "DELETE FROM taak WHERE id=:id";
 
 // Statement voorbereiden
 $stmt = $conn->prepare($query);
+
+// Placeholder :id koppelen aan variabele $id
+$stmt->bindParam(':id', $id);
 
 // Query uitvoeren
 $stmt->execute();
